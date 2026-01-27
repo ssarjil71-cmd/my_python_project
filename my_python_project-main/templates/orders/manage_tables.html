@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Tables - HotelEase</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='orders/orders.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-hotel"></i> HotelEase</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('hotel_manager.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="{{ url_for('orders.manage_tables') }}" class="active"><i class="fas fa-table"></i> Manage Tables</a>
+                <a href="{{ url_for('orders.qr_orders') }}"><i class="fas fa-shopping-cart"></i> QR Orders</a>
+                <a href="{{ url_for('hotel_manager.logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <div class="content-header">
+                <h1><i class="fas fa-table"></i> Manage Tables</h1>
+                <!-- FORM with POST method to SAME route -->
+                <form method="POST" action="{{ url_for('orders.manage_tables') }}" style="display: inline;">
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-plus"></i> Add New Table
+                    </button>
+                </form>
+            </div>
+
+            <div class="tables-grid">
+                {% for table in tables %}
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3>Table {{ table.table_number }}</h3>
+                        <span class="qr-badge">{{ table.qr_code_no }}</span>
+                    </div>
+                    <div class="qr-container">
+                        {% if table.qr_image_path %}
+                        <img src="{{ url_for('static', filename=table.qr_image_path.replace('static/', '')) }}" alt="QR Code">
+                        {% else %}
+                        <div class="qr-placeholder">QR Code</div>
+                        {% endif %}
+                    </div>
+                    <div class="table-actions">
+                        <a href="{{ url_for('orders.download_qr', table_number=table.table_number) }}" class="btn-download">
+                            <i class="fas fa-download"></i> Download QR
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="no-tables">
+                    <i class="fas fa-table"></i>
+                    <h3>No tables yet</h3>
+                    <p>Click "Add New Table" to create your first table with QR code</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

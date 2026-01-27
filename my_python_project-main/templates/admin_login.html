@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - HotelEase</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .login-container { max-width: 450px; margin: 4rem auto; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #4a5568; }
+        .form-group input { width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; }
+        .form-group input:focus { outline: none; border-color: #667eea; }
+        .login-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.8rem 1rem; border: none; border-radius: 8px; width: 100%; font-size: 1rem; font-weight: 600; cursor: pointer; }
+        .login-btn:hover { opacity: 0.9; }
+        .message { display: none; padding: 0.8rem; border-radius: 8px; margin-top: 1rem; }
+        .message.success { background: #c6f6d5; color: #22543d; display: block; }
+        .message.error { background: #fed7d7; color: #742a2a; display: block; }
+        h1 { text-align: center; margin-bottom: 2rem; color: #2d3748; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>🔒 Admin Login</h1>
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label>Username</label>
+                <input id="login-username" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input id="login-password" type="password" required>
+            </div>
+            <button class="login-btn" type="submit">Login</button>
+            <div id="login-message" class="message"></div>
+        </form>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            console.log('Attempting login with:', username); // Debug log
+
+            fetch('/admin/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => {
+                console.log('Response status:', res.status); // Debug log
+                return res.json();
+            })
+            .then(data => {
+                console.log('Response data:', data); // Debug log
+                const el = document.getElementById('login-message');
+                el.textContent = data.message;
+                el.className = 'message ' + (data.success ? 'success' : 'error');
+                if (data.success) {
+                    setTimeout(() => {
+                        window.location.href = `/admin/dashboard?id=${data.id}&name=${encodeURIComponent(data.name)}`;
+                    }, 800);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error); // Debug log
+                const el = document.getElementById('login-message');
+                el.textContent = 'Login failed. Please try again.';
+                el.className = 'message error';
+            });
+        }
+    </script>
+</body>
+</html>

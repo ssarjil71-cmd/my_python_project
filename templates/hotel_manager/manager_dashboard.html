@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+
+<header class="admin-header">
+    <div class="header-left">
+        <strong>HotelEase</strong>
+    </div>
+
+    <div class="header-center">
+        <h2>Manager Panel</h2>
+    </div>
+
+    <div class="header-right">
+        <span>{{ manager_name }}</span>
+        <a href="{{ url_for('hotel_manager.logout') }}" class="logout-btn">Logout</a>
+    </div>
+</header>
+
+<div class="dashboard-content">
+
+    <h1 class="page-title">Dashboard</h1>
+    <p class="page-subtitle">Welcome {{ manager_name }}</p>
+
+    <div class="cards-grid">
+        <div class="card">
+            <div class="card-icon green">👤</div>
+            <div class="card-info">
+                <h3>Total Waiters</h3>
+                <p class="card-number">{{ waiters_count }}</p>
+                <span>Registered staff</span>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="margin-top:40px;">Add Waiter</h2>
+
+    <div class="form-container">
+        <form onsubmit="addWaiter(event)">
+            <div class="form-group">
+                <label>Name</label>
+                <input id="wname" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input id="wemail" required>
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input id="wphone" required>
+            </div>
+            <button class="btn btn-primary">Add</button>
+            <div id="msg" class="message"></div>
+        </form>
+    </div>
+
+    <h2 style="margin-top:40px;">Waiters List</h2>
+
+    <div class="table-container">
+        <table class="managers-table">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for w in waiters %}
+                <tr>
+                    <td>{{ w[0] }}</td>
+                    <td>{{ w[1] }}</td>
+                    <td>{{ w[2] }}</td>
+                    <td>{{ w[3] }}</td>
+                    <td>
+                        <button onclick="delWaiter({{ w[0] }})"
+                                class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+const managerId = "{{ manager_id }}";
+
+function addWaiter(e){
+    e.preventDefault();
+    fetch("/hotel-manager/add-waiter",{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({
+            manager_id:managerId,
+            name:wname.value,
+            email:wemail.value,
+            phone:wphone.value
+        })
+    })
+    .then(res=>res.json())
+    .then(d=>{
+        msg.innerText=d.message;
+        msg.className="message "+(d.success?"success":"error");
+        if(d.success) setTimeout(()=>location.reload(),800);
+    });
+}
+
+function delWaiter(id){
+    if(!confirm("Delete waiter?")) return;
+    fetch("/hotel-manager/delete-waiter",{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({
+            waiter_id:id,
+            manager_id:managerId
+        })
+    })
+    .then(res=>res.json())
+    .then(d=>{
+        alert(d.message);
+        if(d.success) location.reload();
+    });
+}
+</script>
+
+</body>
+</html>

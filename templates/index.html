@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HotelEase | Welcome</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">HotelEase</div>
+
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active">Home</a></li>
+                <li><a href="#" class="nav-link">Rooms</a></li>
+                <li><a href="#" class="nav-link">Services</a></li>
+                <li><a href="#" class="nav-link">Contact</a></li>
+
+                <li class="login-dropdown">
+                    <button class="login-btn" id="loginBtn">Login ▼</button>
+                    <div class="dropdown-content" id="dropdownMenu">
+                        <a href="{{ url_for('admin.login') }}">Admin Login</a>
+                        <a href="{{ url_for('hotel_manager.login_page') }}">Manager Login</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to HotelEase</h1>
+            <p>Smart hotel management with comfort, speed, and simplicity.</p>
+            <button class="cta-btn">Get Started</button>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="feature-box">
+            <h3>Smart Management</h3>
+            <p>Digitally manage rooms, staff, and services.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Fast Operations</h3>
+            <p>Reduce paperwork and save valuable time.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Secure System</h3>
+            <p>Role-based access for admins and managers.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2026 HotelEase. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

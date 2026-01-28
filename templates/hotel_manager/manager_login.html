@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body class="login-page">
+
+<div class="login-container">
+    <h2>Hotel Manager Login</h2>
+    <p class="subtitle">Access your dashboard</p>
+
+    <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="username" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+        <div id="msg" class="message"></div>
+    </form>
+
+    <p style="text-align:center;margin-top:15px;">
+        Don’t have an account?
+        <a href="{{ url_for('hotel_manager.signup_page') }}">Create one</a>
+    </p>
+</div>
+
+<script>
+function handleLogin(e) {
+    e.preventDefault();
+    fetch("/hotel-manager/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: username.value,
+            password: password.value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        msg.innerText = data.message;
+        msg.className = "message " + (data.success ? "success" : "error");
+        if (data.success) {
+            setTimeout(() => {
+                window.location.href =
+                  `/hotel-manager/dashboard?id=${data.id}&name=${encodeURIComponent(data.name)}`;
+            }, 800);
+        }
+    });
+}
+</script>
+
+</body>
+</html>

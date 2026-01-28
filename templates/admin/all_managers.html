@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Managers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+
+    {% include 'shared/header.html' %}
+    {% include 'shared/sidebar.html' %}
+
+    <div class="main-content">
+        <div class="content-header">
+            <h1>All Managers</h1>
+            <a href="{{ url_for('admin.add_manager') }}" class="btn btn-primary">Add Manager</a>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="table-container">
+            <table class="managers-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Hotel Name</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for manager in managers %}
+                    <tr>
+                        <td>{{ manager[0] }}</td>
+                        <td>{{ manager[1] }}</td>
+                        <td>{{ manager[2] }}</td>
+                        <td>{{ manager[3] }}</td>
+                        <td>{{ manager[4] or "Not Assigned" }}</td>
+                        <td>{{ manager[5] }}</td>
+                        <td>
+                            <a href="{{ url_for('admin.edit_manager', manager_id=manager[0]) }}" class="btn btn-edit">Edit</a>
+                            <form method="POST" action="{{ url_for('admin.delete_manager', manager_id=manager[0]) }}" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this manager?')">
+                                <button type="submit" class="btn btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="no-data">No managers found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% include 'shared/footer.html' %}
+
+</body>
+</html>

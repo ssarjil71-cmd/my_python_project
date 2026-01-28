@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Hotels</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+
+{% include 'shared/header.html' %}
+{% include 'shared/sidebar.html' %}
+
+<div class="main-content">
+    <div class="content-header">
+        <h1>All Hotels</h1>
+    </div>
+
+    <div class="table-container">
+        <table class="managers-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Hotel Name</th>
+                    <th>City</th>
+                    <th>KYC</th>
+                    <th>Food</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in hotels %}
+                <tr>
+                    <td>{{ h[0] }}</td>
+                    <td>{{ h[1] }}</td>
+                    <td>{{ h[2] }}</td>
+                    <td>{{ "Yes" if h[3] else "No" }}</td>
+                    <td>{{ "Yes" if h[4] else "No" }}</td>
+                    <td>
+                        <a href="{{ url_for('admin.edit_hotel_modules', hotel_id=h[0]) }}">
+                            Edit Modules
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include 'shared/footer.html' %}
+</body>
+</html>

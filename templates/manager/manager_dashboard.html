@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+
+    {% include 'shared/header.html' %}
+    {% include 'shared/sidebar.html' %}
+
+    <div class="dashboard-content">
+        <h1>Welcome {{ session.manager_name }} 👋</h1>
+        <p>Manager Dashboard - {{ session.manager_email }}</p>
+
+        <a href="{{ url_for('manager.logout') }}" class="logout-btn">Logout</a>
+    </div>
+
+    {% include 'shared/footer.html' %}
+
+</body>
+</html>

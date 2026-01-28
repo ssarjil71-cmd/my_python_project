@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Username</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+
+    {% include 'shared/header.html' %}
+    {% include 'shared/sidebar.html' %}
+
+    <div class="main-content">
+        <div class="content-header">
+            <h1>Change Username</h1>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="form-container">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="username">New Username:</label>
+                    <input type="text" id="username" name="username" value="{{ session.admin_username }}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Username</button>
+                <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+    {% include 'shared/footer.html' %}
+
+</body>
+</html>

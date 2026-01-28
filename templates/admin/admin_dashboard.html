@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+
+    {% include 'shared/header.html' %}
+    {% include 'shared/sidebar.html' %}
+
+    <div class="dashboard-content">
+
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">Welcome {{ session.admin_name }} 👋</p>
+
+        <!-- DASHBOARD CARDS -->
+        <div class="cards-grid">
+
+            <!-- TOTAL KYC -->
+            <a href="{{ url_for('admin.all_hotels') }}" class="card-link">
+                <div class="card">
+                    <div class="card-icon green">🆔</div>
+                    <div class="card-info">
+                        <h3>Total Verifications</h3>
+                        <p class="card-number">{{ total_kyc }}</p>
+                        <span>Total KYC completed</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- TODAY'S KYC -->
+            <a href="{{ url_for('admin.all_hotels') }}" class="card-link">
+                <div class="card">
+                    <div class="card-icon blue">📅</div>
+                    <div class="card-info">
+                        <h3>Today's Verifications</h3>
+                        <p class="card-number">{{ today_kyc }}</p>
+                        <span>KYCs done today</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('admin.all_hotels') }}" class="card-link">
+                <div class="card">
+                    <div class="card-icon blue">📅</div>
+                    <div class="card-info">
+                        <h3>Today's Verifications</h3>
+                        <p class="card-number">{{ today_kyc }}</p>
+                        <span>KYCs done today</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('admin.all_hotels') }}" class="card-link">
+                <div class="card">
+                    <div class="card-icon blue">📅</div>
+                    <div class="card-info">
+                        <h3>Today's Verifications</h3>
+                        <p class="card-number">{{ today_kyc }}</p>
+                        <span>KYCs done today</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('admin.all_hotels') }}" class="card-link">
+                <div class="card">
+                    <div class="card-icon blue">📅</div>
+                    <div class="card-info">
+                        <h3>Today's Verifications</h3>
+                        <p class="card-number">{{ today_kyc }}</p>
+                        <span>KYCs done today</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('admin.all_hotels') }}" class="card-link">
+                <div class="card">
+                    <div class="card-icon blue">📅</div>
+                    <div class="card-info">
+                        <h3>Today's Verifications</h3>
+                        <p class="card-number">{{ today_kyc }}</p>
+                        <span>KYCs done today</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('admin.all_hotels') }}" class="card-link">
+                <div class="card">
+                    <div class="card-icon blue">📅</div>
+                    <div class="card-info">
+                        <h3>Today's Verifications</h3>
+                        <p class="card-number">{{ today_kyc }}</p>
+                        <span>KYCs done today</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('admin.all_hotels') }}" class="card-link">
+                <div class="card">
+                    <div class="card-icon blue">📅</div>
+                    <div class="card-info">
+                        <h3>Today's Verifications</h3>
+                        <p class="card-number">{{ today_kyc }}</p>
+                        <span>KYCs done today</span>
+                    </div>
+                </div>
+            </a>
+            <a href="{{ url_for('admin.all_hotels') }}" class="card-link">
+                <div class="card">
+                    <div class="card-icon blue">📅</div>
+                    <div class="card-info">
+                        <h3>Today's Verifications</h3>
+                        <p class="card-number">{{ today_kyc }}</p>
+                        <span>KYCs done today</span>
+                    </div>
+                </div>
+            </a>
+            <a href="{{ url_for('admin.all_hotels') }}" class="card-link">
+                <div class="card">
+                    <div class="card-icon blue">📅</div>
+                    <div class="card-info">
+                        <h3>Today's Verifications</h3>
+                        <p class="card-number">{{ today_kyc }}</p>
+                        <span>KYCs done today</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+    {% include 'shared/footer.html' %}
+
+</body>
+</html>

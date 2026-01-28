@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+
+    {% include 'shared/header.html' %}
+    {% include 'shared/sidebar.html' %}
+
+    <div class="main-content">
+        <div class="content-header">
+            <h1>Edit Manager</h1>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="form-container">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" value="{{ manager[1] }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="{{ manager[2] }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="{{ manager[3] }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password (leave blank to keep current):</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Update Manager</button>
+                <a href="{{ url_for('admin.all_managers') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+    {% include 'shared/footer.html' %}
+
+</body>
+</html>

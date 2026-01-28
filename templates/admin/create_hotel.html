@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Hotel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+
+{% include 'shared/header.html' %}
+{% include 'shared/sidebar.html' %}
+
+<div class="main-content center-page">
+
+    <div class="content-header">
+        <h1>Create Hotel</h1>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="form-container">
+        <form method="POST">
+
+            <div class="form-group">
+                <label>Hotel Name</label>
+                <input type="text" name="hotel_name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                <textarea name="address"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" name="city">
+            </div>
+
+            <h3>Enable Modules</h3>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="kyc">
+                    Customer Verification (KYC)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="food">
+                    Food Ordering (QR)
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Create Hotel
+            </button>
+
+        </form>
+    </div>
+</div>
+
+{% include 'shared/footer.html' %}
+
+</body>
+</html>

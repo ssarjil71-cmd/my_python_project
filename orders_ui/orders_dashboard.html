@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Dashboard - HotelEase</title>
+    <link rel="stylesheet" href="../static/manager_dashboard.css">
+    <link rel="stylesheet" href="orders_ui.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">
+                <i class="fas fa-hotel"></i>
+                HotelEase
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="profile-dropdown">
+                <div class="profile-btn" onclick="toggleProfile()">
+                    <img src="https://via.placeholder.com/40x40/667eea/ffffff?text=M" alt="Profile" class="profile-img">
+                    <span class="profile-name">Manager</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="profile-menu" id="profileMenu">
+                    <a href="#"><i class="fas fa-user"></i> Profile Settings</a>
+                    <a href="#"><i class="fas fa-cog"></i> Account Settings</a>
+                    <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-menu">
+                <a href="../templates/manager_dashboard.html" class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="menu-item active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Waiters</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-utensils"></i>
+                    <span>Menu</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verification</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h1><i class="fas fa-list-alt"></i> Orders Dashboard</h1>
+                <p>View and manage all QR-based table orders</p>
+            </div>
+
+            <!-- Quick Actions -->
+            <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                <a href="manage_tables.html" class="btn-primary" style="text-decoration: none;">
+                    <i class="fas fa-qrcode"></i> Manage Tables
+                </a>
+                <button onclick="refreshOrders()" class="btn-primary" style="background: #10b981;">
+                    <i class="fas fa-sync-alt"></i> Refresh Orders
+                </button>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="table-card">
+                <h3><i class="fas fa-shopping-cart"></i> QR Code Orders</h3>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                    <thead>
+                        <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #4a5568;">Table Number</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #4a5568;">QR Number</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #4a5568;">Ordered Items</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #4a5568;">Total Amount</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #4a5568;">Order Time</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #4a5568;">Order Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table-body">
+                        <!-- Orders will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="orders_ui.js"></script>
+    <script>
+        function toggleProfile() {
+            const menu = document.getElementById('profileMenu');
+            menu.classList.toggle('show');
+        }
+
+        function refreshOrders() {
+            loadOrdersData();
+        }
+
+        // Initialize orders on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrdersData();
+        });
+    </script>
+</body>
+</html>
